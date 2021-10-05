@@ -147,7 +147,7 @@ class AbstractForm(models.Model):
         data_fields = [("submit_time", _("Submission date"))]
         data_fields += [
             (get_slug_from_string(field["value"]["label"]), field["value"]["label"])
-            for field in self.get_form_fields()
+            for field in self.get_form_fields() if not field["type"] in ('titlefield', 'hintfield')
         ]
 
         return data_fields

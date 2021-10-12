@@ -17,7 +17,7 @@
                 <th><input type="checkbox" id="select-all" /></th>
             {% endif %}
             {% for heading in data_headings %}
-                <th>{{ heading }}</th>
+                <th>{{ heading|striptags }}</th>
             {% endfor %}
         </tr>
     </thead>

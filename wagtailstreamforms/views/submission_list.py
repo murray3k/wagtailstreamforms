@@ -3,7 +3,7 @@ import datetime
 
 from django.core.exceptions import PermissionDenied
 from django.http import Http404, HttpResponse
-from django.utils.encoding import smart_str
+from django.utils.encoding import force_str
 from django.utils.html import strip_tags
 from django.utils.translation import ugettext as _
 from django.views.generic import ListView
@@ -53,7 +53,7 @@ class SubmissionListView(SingleObjectMixin, ListView):
     def csv(self):
         queryset = self.get_queryset()
         data_fields = self.object.get_data_fields()
-        data_headings = [smart_str(strip_tags(label)) for name, label in data_fields]
+        data_headings = [force_str(strip_tags(label)) for name, label in data_fields]
 
         response = HttpResponse(content_type="text/csv; charset=utf-8")
         response["Content-Disposition"] = "attachment;filename=export.csv"
@@ -64,7 +64,7 @@ class SubmissionListView(SingleObjectMixin, ListView):
             data_row = []
             form_data = s.get_data()
             for name, label in data_fields:
-                data_row.append(smart_str(form_data.get(name)))
+                data_row.append(force_str(form_data.get(name)))
             writer.writerow(data_row)
 
         return response

@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/base.html" %}
-{% load i18n %}
+{% load i18n modeladmin_tags wagtailadmin_tags %}
 {% block titletag %}{% blocktrans with form_title=object.title|capfirst %}Submissions of {{ form_title }}{% endblocktrans %}{% endblock %}
 {% block extra_js %}
     {{ block.super }}
@@ -86,7 +86,14 @@
                     </div>
                 </div>
                 <div class="right">
-                    <button name="action" value="CSV" class="button bicolor icon icon-download">{% trans 'Download CSV' %}</button>
+                    <div class="dropdown dropdown-button match-width col">
+                        <button name="action" value="CSV" class="button bicolor icon icon-download">{% trans 'Download CSV' %}</button>
+                        <div class="dropdown-toggle">{% icon name="arrow-down" %}</div>
+                        <ul>
+                            <li><button name="action" value="EXCEL" class="button bicolor icon icon-download">{% trans 'Download Excel' %}</button></li>
+                        </ul>
+                    </div>
+
                 </div>
             </div>
         </form>
